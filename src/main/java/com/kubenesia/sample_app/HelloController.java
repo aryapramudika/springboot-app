@@ -21,7 +21,7 @@ public class HelloController {
     public String hello() {
         // Increment the counter for each request to the root
         long currentCount = requestCount.incrementAndGet();
-        return "Hello from Spring Boot Web Application! (Requests served by this instance: " + currentCount + ")";
+        return "Hello from Spring Boot Web Application Test Jenkins! (Requests served by this instance: " + currentCount + ")";
     }
 
     @GetMapping("/greeting")
