@@ -11,7 +11,7 @@ pipeline {
         stage('Containerized Apps') {
             steps {
                 sh'''
-                docker build -t pramudika/springboot-app .
+                docker build -t pramudika/springboot-app:v3 .
                 '''
             }
         }
@@ -19,7 +19,7 @@ pipeline {
         stage('Push to Registry') {
             steps {
                 sh'''
-                docker push pramudika/springboot-app
+                docker push pramudika/springboot-app:v3
                 '''
             }
         }
