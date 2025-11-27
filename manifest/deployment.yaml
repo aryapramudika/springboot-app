@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: ct-app
-        image: pramudika/springboot-app
+        image: pramudika/springboot-app:v3
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
