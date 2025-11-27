@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Pull SCM') {
             steps {
-                git branch: 'main', url: 'https://github.com/aryapramudika/springboot-app.git'
+                git branch: 'gh-pages', url: 'https://github.com/aryapramudika/springboot-app.git'
             }
         }
         
