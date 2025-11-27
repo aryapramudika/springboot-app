@@ -20,6 +20,7 @@ spec:
         image: pramudika/springboot-app
         ports:
         - containerPort: 8080
+        imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
