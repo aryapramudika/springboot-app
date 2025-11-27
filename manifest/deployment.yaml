@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-app
+  labels:
+    app: springboot-app
+  namespace: test-jenkins
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: springboot-app
+  template:
+    metadata:
+      labels:
+        app: springboot-app
+    spec:
+      containers:
+      - name: ct-app
+        image: pramudika/springboot-app
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springboot-app
+  labels:
+    app: springboot-app
+  namespace: test-jenkins
+spec:
+  type: ClusterIP
+  selector:
+    app: springboot-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: springboot-app
+  namespace: test-jenkins
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - 'test-jenkins.appsku.local'
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: springboot-app
+  namespace: test-jenkins
+spec:
+  hosts:
+    - "test-jenkins.appsku.local"
+  gateways:
+    - springboot-app
+  http:
+    - route:
+        - destination:
+            host: springboot-app
+            port:
+              number: 80
